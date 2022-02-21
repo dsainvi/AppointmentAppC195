@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomePage">
+   <children>
+      <TableView fx:id="CustomerTable" layoutX="8.0" layoutY="42.0" prefHeight="159.0" prefWidth="584.0">
+        <columns>
+          <TableColumn fx:id="customerIdTable" prefWidth="75.0" text="Customer_id" />
+          <TableColumn fx:id="CustomerNameTable" prefWidth="75.199951171875" text="name" />
+            <TableColumn fx:id="customerAddressTable" prefWidth="84.20001220703125" text="address" />
+            <TableColumn fx:id="customerPhoneTable" prefWidth="84.20001220703125" text="phone" />
+            <TableColumn fx:id="customerZipcodeTable" prefWidth="84.20001220703125" text="zip" />
+            <TableColumn fx:id="customerCountryTable" prefWidth="87.60000610351562" text="division" />
+        </columns>
+      </TableView>
+      <TextField fx:id="CustomerNameTextField" layoutX="55.0" layoutY="237.0" prefHeight="17.0" prefWidth="149.0" promptText="name" />
+      <TextField fx:id="phoneNumberTextField" layoutX="55.0" layoutY="263.0" promptText="111-111-1111" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="-1.0" prefHeight="32.0" prefWidth="269.0" text="Customers">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="13.0" layoutY="241.0" prefHeight="17.0" prefWidth="41.0" text="   Name:" wrapText="true">
+         <font>
+            <Font size="11.0" />
+         </font></Label>
+      <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="9.0" layoutY="267.0" prefHeight="17.0" prefWidth="47.0" text="Phone:" />
+      <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="8.0" layoutY="296.0" prefHeight="17.0" prefWidth="47.0" text="ZipCode:">
+         <font>
+            <Font size="11.0" />
+         </font></Label>
+      <Label alignment="CENTER_RIGHT" layoutX="227.0" layoutY="246.0" prefHeight="17.0" prefWidth="47.0" text="Address:" />
+      <TextField fx:id="zipTextField" layoutX="55.0" layoutY="292.0" promptText="postal code" />
+      <TextField fx:id="AddressTextField" layoutX="274.0" layoutY="242.0" promptText="123 ABC Street" />
+      <ComboBox fx:id="CountryComboBox" layoutX="274.0" layoutY="267.0" onAction="#countryIsSelected" prefWidth="150.0" promptText="Country" />
+      <ComboBox fx:id="lvlDivisionComboBox" layoutX="274.0" layoutY="292.0" prefWidth="150.0" promptText="State/provinces" />
+      <TextField fx:id="CustomerIdTextField" disable="true" layoutX="275.0" layoutY="215.0" prefHeight="25.0" prefWidth="149.0" promptText="customer_ID" />
+      <Label fx:id="CusId" layoutX="243.0" layoutY="9.0" text="CusID" visible="false" />
+      <ButtonBar layoutX="45.0" layoutY="352.0" prefHeight="40.0" prefWidth="393.0">
+        <buttons>
+            <Button fx:id="AddButton" minWidth="63.0" mnemonicParsing="false" onAction="#AddAction" prefHeight="25.0" prefWidth="114.0" text="Add" />
+            <Button fx:id="UpdateButton" mnemonicParsing="false" onAction="#UpdateAction" prefHeight="25.0" prefWidth="124.0" text="update" />
+            <Button fx:id="DeleteButton" mnemonicParsing="false" onAction="#DeleteAction" prefHeight="25.0" prefWidth="150.0" text="Delete" />
+        </buttons>
+      </ButtonBar>
+      <Label fx:id="UserId" alignment="CENTER" contentDisplay="CENTER" layoutX="69.0" layoutY="219.0" prefHeight="17.0" prefWidth="106.0" />
+      <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="215.0" layoutY="215.0" prefHeight="25.0" prefWidth="60.0" text="CustomerID:" wrapText="true">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER_RIGHT" layoutX="30.0" layoutY="219.0" prefHeight="17.0" prefWidth="31.0" text="User:" />
+      <ButtonBar layoutX="274.0" layoutY="6.0" prefHeight="40.0" prefWidth="315.0">
+        <buttons>
+             <Button fx:id="Reports" mnemonicParsing="false" onAction="#reportsPressed" text="Reports" />
+            <Button fx:id="AppointmentButton" mnemonicParsing="false" onAction="#AppointmentButtonAction" prefHeight="25.0" prefWidth="100.0" text="Appointments" />
+            <Button fx:id="Logout" minWidth="71.0" mnemonicParsing="false" onAction="#logoutAction" prefHeight="28.0" text="Logout" />
+        </buttons>
+      </ButtonBar>
+      <Label alignment="CENTER_RIGHT" layoutX="227.0" layoutY="271.0" prefHeight="17.0" prefWidth="47.0" text="Country:" />
+      <Label alignment="CENTER_RIGHT" layoutX="227.0" layoutY="296.0" prefHeight="17.0" prefWidth="47.0" text="DIivsion:" />
+   </children>
+</AnchorPane>

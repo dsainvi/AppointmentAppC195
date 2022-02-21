@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserReportPage">
+    <children>
+        <Label alignment="CENTER" layoutX="80.0" layoutY="5.0" prefHeight="35.0" prefWidth="163.0" text="User Reports">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <Label fx:id="userIdText" layoutX="18.0" layoutY="35.0" prefHeight="17.0" prefWidth="113.0" />
+        <Button layoutX="7.0" layoutY="5.0" mnemonicParsing="false" onAction="#backPressed" text="Back" />
+        <RadioButton fx:id="apptsbytype" layoutY="61.0" mnemonicParsing="false" text="Total amount of Customer appointments by type" />
+        <RadioButton fx:id="apptsbymonth" layoutY="44.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="315.0" text="Total amount of Customer appointments by month" />
+        <RadioButton fx:id="contactschedules" layoutY="98.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="152.0" text="Each contact Schedule " />
+        <RadioButton fx:id="customersadded" layoutY="81.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="280.0" text="Total amount of Customer added this week" />
+        <TextArea fx:id="textarea" editable="false" layoutX="13.0" layoutY="131.0" prefHeight="209.0" prefWidth="575.0" />
+    </children>
+</AnchorPane>
