@@ -30,7 +30,6 @@ public class DivisionsCRUD {
                 division.setDivisionsId(reslt.getInt("Division_ID"));
                 division.setCountryId(reslt.getInt("COUNTRY_ID"));
                 division.setDivisionsName(reslt.getString("Division"));
-
                 divisionList.add(division);
             }
             return divisionList;

@@ -33,7 +33,6 @@ public class CustomersCRUD {
                 customer.setZipCode(rs.getString("Postal_Code"));
                 customer.setTelephoneNumber(rs.getString("Phone"));
                 customer.setfirstLvLDivision(rs.getInt("Division_ID"));
-
                 customerList.add(customer);
             }
             return customerList;
@@ -64,9 +63,7 @@ public class CustomersCRUD {
             String address = reslt.getString("Address");
             String zipcode = reslt.getString("Postal_Code");
             String telephone = reslt.getString("Phone");
-               int division_id = reslt.getInt("Division_ID");
-
-
+            int division_id = reslt.getInt("Division_ID");
             Customers customers = new Customers();
                customers.setCusId(customer_id);
              customers.setCusname(customer_name);
@@ -74,12 +71,10 @@ public class CustomersCRUD {
               customers.setTelephoneNumber(telephone);
             customers.setfirstLvLDivision(division_id);
              customers.setZipCode(zipcode);
-
             everyCustomer.add(customers);
         }
         return everyCustomer;
     }
-
     /**
      * Gets customerId from customer name
      * uses name as a key
@@ -90,44 +85,31 @@ public class CustomersCRUD {
      */
     public static int getCustomersIdFromName(String name) throws ClassNotFoundException, SQLException {
         String q = "select Customer_ID from customers where Customer_Name = '"+name+"'";
-
         try {
             QueryManager.manifestQuery(q);
             ResultSet reslt = QueryManager.getReslt();
             if(reslt.next()) {
                 int customerId = Integer.parseInt(reslt.getString(1));
                 return customerId;
-            }
-            else {
-                return 0;
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Error customer id" + e);
+            } else {return 0;}
+        } catch (SQLException e) {System.out.println("Error customer id" + e);
             e.printStackTrace();
             throw e;
         }
     }
-
     public static String getCustomerName(int customerId) throws ClassNotFoundException, SQLException {
         String q = "select Customer_Name from customers where Customer_ID =" +customerId+"";
-
-        try {
-            QueryManager.manifestQuery(q);
+        try {QueryManager.manifestQuery(q);
             ResultSet rs = QueryManager.getReslt();
             if(rs.next()) {
                 String customerName = rs.getString(1);
                 return  customerName;
-            }
-            return "";
-
-        } catch (SQLException e) {
-            System.out.println("Error while getting customer name" + e);
+            }return "";
+        } catch (SQLException e) {System.out.println("Error while getting customer name" + e);
             e.printStackTrace();
             throw e;
         }
     }
-
     /**
      * getAllRecordsThisWeek
      * @return customerList
@@ -136,18 +118,17 @@ public class CustomersCRUD {
      */
     public static ObservableList<Customers> getAllRecordsThisWeek() throws ClassNotFoundException, SQLException {
         String query = "SELECT * FROM customers WHERE create_date BETWEEN NOW() - INTERVAL 7 DAY AND NOW()";
-
         try {
             QueryManager.manifestQuery(query);
             ResultSet rs = QueryManager.getReslt();
             ObservableList<Customers> customerList = getCustomerObjects(rs);
-
             return customerList;
         } catch (SQLException e) {
             System.out.println("Error while getting the newly added customers data from the database this week" + e);
             e.printStackTrace();
             throw e;
         }
+
     }
 
     /**
@@ -165,7 +146,6 @@ public class CustomersCRUD {
         String CusQ ="INSERT INTO client_schedule.customers(Customer_ID, Customer_Name, Address, Postal_Code, Phone, Create_Date, Division_ID) VALUES('"+cusid+"', '"+cusname+"', '"+cusaddress+"','"+zipCode+"', '"+telephone+"', '"+ LocalDateTime.now()+"', '"+cusdivision+"')";
         QueryManager.manifestQuery(CusQ);
     }
-
     /**
      * deletes customer from DB and table
      *uses cusid as a key
@@ -192,9 +172,6 @@ public class CustomersCRUD {
         String CusQ ="UPDATE client_schedule.customers set Customer_Name ='"+cusname+"'," +"Address ='"+cusaddress+"', Postal_Code ='"+zipCode+"', Phone ='"+telephone+"', Division_ID ='"+cusdivision+"' WHERE Customer_ID ='"+cusid+"'";
         QueryManager.manifestQuery(CusQ);
     }
-
-
-
 }
 
 

@@ -1,13 +1,10 @@
 package modles;
-
 import dbmanager.QueryManager;
 import dbmanager.dbGide;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-
 /**
  * UsersCRUD class
  */
@@ -28,19 +25,27 @@ public class UsersCRUD {
         QueryManager.manifestQuery(sqlCommand);
         ResultSet reslt = QueryManager.getReslt();
         while (reslt.next()){
-            int usersiD = reslt.getInt("User_ID");
-            String usersnamE = reslt.getString("User_Name");
-            String passworD = reslt.getString("Password");
             Users usersReslt = new Users();
-            usersReslt.setUsersId(usersiD);
-            usersReslt.setUsersName(usersnamE);
-            usersReslt.setPassWord(passworD);
+            usersReslt.setUsersId(reslt.getInt("User_ID"));
+            usersReslt.setUsersName(reslt.getString("User_Name"));
+            usersReslt.setPassWord(reslt.getString("Password"));
             everyUser.add(usersReslt);
+        }return everyUser;
+    }
+    public static int getUserId(String username) throws ClassNotFoundException, SQLException{
+        String query = "select User_ID from users where User_Name = '"+username+"'";
+        try{QueryManager.manifestQuery(query);
+            ResultSet rs = QueryManager.getReslt();
+            if(rs.next()) {
+                int id = rs.getInt("User_ID");
+                return id;
+            }
+            return 0;
+        } catch (SQLException e) {System.out.println("Error could not get user id from DB" + e);
+            e.printStackTrace(); throw e;
         }
-        return everyUser;
     }
 }
-
 /**
  * @socures C195 Code Repository\DAODemo2021\DAODemo2021\src\sample\DAO\UserDaoImpl
  */

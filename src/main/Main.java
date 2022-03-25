@@ -8,6 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -39,18 +41,13 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
     /**
      * getStage
      * help organize screen changes while maintaining the same stage
      * @return stage
      */
 //gets stage
-    public static Stage getStage() {
-
-        return stage;
-    }
-
+    public static Stage getStage() {return stage;}
     /**
      * main is the heart of the application. for this application main check if the user speaks French based on his/her location
      * if so it prints hello world in French and creates a resources bundle that calls the Language properties
@@ -58,14 +55,11 @@ public class Main extends Application {
      * @param arg
      */
     public static void main(String[] arg){
-
         if(Locale.getDefault().getLanguage().equals("fr")) {
             ResourceBundle rb = ResourceBundle.getBundle("resources.Lag", Locale.getDefault());
             System.out.println(rb.getString("hello") + " " + rb.getString("world"));
-
         }
-        else {
-            System.out.println("hello world");
+        else {System.out.println("hello world");
 
         }
         dbGide.winConnection();

@@ -20,21 +20,8 @@ private static final String protocol = "jdbc";
      * vendor is a string that informs the receiver that the interface used to manage the Data is mysql.
      */
 private static final String vendor = ":mysql:";
-    /**
-     * location
-     * location is the localhost it refers to the users current device and access net servers linked closely to the host.
-     */
 private static final String location = "//localhost/";
-    /**
-     * database name is client_schedule.
-     * this tell mysql with db we are looking for.
-     */
 private static final String databaseName = "client_schedule";
-    /**
-     * jdbcUrl is a combination of important that helps locate a specific database
-     * such as the users location and timezone
-     *
-     */
 private static final String jdbcUrl = protocol + vendor + location + databaseName + "?connectionTimeZone = SERVER";
     /**
      * driver
@@ -66,16 +53,13 @@ public static Connection conect;
         try{
             Class.forName(driver);
             conect = DriverManager.getConnection(jdbcUrl, userName, password);
-            System.out.println("Connected");
         }
         catch(Exception e)
         {
             System.out.println("error " + e.getMessage());
         }
 }
-
 }
-
 /**
  * @sources C195 Code Repository: C195_QSG\Connecting_to_the_Database_IntelliJ
  *

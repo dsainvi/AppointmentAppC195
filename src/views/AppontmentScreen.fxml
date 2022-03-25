@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
@@ -16,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="563.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AppointmentScreen">
+<AnchorPane prefHeight="563.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AppointmentScreen">
    <children>
       <TableView fx:id="AppointmentTable" layoutY="38.0" prefHeight="181.0" prefWidth="777.0">
         <columns>
@@ -31,21 +32,35 @@
             <TableColumn fx:id="customerIdTable" prefWidth="77.0" text="Customer_Id" />
             <TableColumn fx:id="userIdTable" prefWidth="48.0" text="user_Id" />
         </columns>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </TableView>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="64.0" prefHeight="35.0" prefWidth="248.0" text="Schedule">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="BackButton" layoutX="14.0" layoutY="5.0" mnemonicParsing="false" onAction="#BackActionButton" prefHeight="25.0" prefWidth="50.0" text="back" />
+      <Button fx:id="BackButton" layoutX="14.0" layoutY="5.0" mnemonicParsing="false" onAction="#BackActionButton" prefHeight="25.0" prefWidth="50.0" text="back">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <ButtonBar layoutX="224.0" layoutY="222.0" prefHeight="40.0" prefWidth="200.0">
         <buttons>
-            <Button fx:id="AddAppointmentButton" mnemonicParsing="false" onAction="#AddAppiontmentActionButtion" prefHeight="25.0" prefWidth="50.0" text="Add" />
-            <Button fx:id="updateAppointmentButton" mnemonicParsing="false" onAction="#updateActionButton" prefHeight="25.0" prefWidth="50.0" text="Update" />
-            <Button fx:id="DeleteAppointmentButton" mnemonicParsing="false" onAction="#DeleteAppointmentAction" text="Delete" />
+            <Button fx:id="AddAppointmentButton" mnemonicParsing="false" onAction="#AddAppiontmentActionButtion" prefHeight="25.0" prefWidth="50.0" text="Add">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="updateAppointmentButton" mnemonicParsing="false" onAction="#updateActionButton" prefHeight="25.0" prefWidth="50.0" text="Update">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="DeleteAppointmentButton" mnemonicParsing="false" onAction="#DeleteAppointmentAction" text="Delete">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
         </buttons>
       </ButtonBar>
-      <TextField fx:id="Appointment_ID" disable="true" layoutX="26.0" layoutY="229.0" promptText="Appointment_ID" />
       <GridPane alignment="CENTER_RIGHT" layoutX="26.0" layoutY="282.0" prefHeight="206.0" prefWidth="655.0">
         <columnConstraints>
           <ColumnConstraints maxWidth="134.79998779296875" minWidth="110.79998779296875" prefWidth="110.79998779296875" />
@@ -62,12 +77,18 @@
          <children>
             <TextField fx:id="locationTextField" prefHeight="25.0" prefWidth="179.0" promptText="location" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="descriptionTextField" prefHeight="25.0" prefWidth="178.0" promptText="description" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ComboBox fx:id="ContactComboBox" prefHeight="25.0" prefWidth="162.0" promptText="Contacts" GridPane.columnIndex="2">
+            <ComboBox fx:id="ContactComboBox" prefHeight="25.0" prefWidth="199.0" promptText="Contacts" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <contextMenu>
                   <ContextMenu />
                </contextMenu>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ComboBox>
-            <DatePicker fx:id="StartDatePicker" prefHeight="25.0" prefWidth="182.0" promptText="Start Date" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <DatePicker fx:id="StartDatePicker" editable="false" prefHeight="25.0" prefWidth="182.0" promptText="Start Date" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></DatePicker>
             <Label prefHeight="17.0" prefWidth="116.0" text="Title" textAlignment="CENTER">
                <font>
                   <Font size="14.0" />
@@ -78,11 +99,20 @@
             <TextField fx:id="TitleTextField" prefHeight="25.0" prefWidth="180.0" promptText="Title" GridPane.columnIndex="1" />
             <ButtonBar buttonMinWidth="50.0" layoutX="393.0" layoutY="91.0" prefHeight="39.0" prefWidth="220.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
                <buttons>
-                  <ComboBox fx:id="endHourComoBox" prefHeight="25.0" prefWidth="215.0" promptText="End hr" />
-                  <ComboBox fx:id="endMinuteComoBox" minWidth="61.0" prefHeight="25.0" prefWidth="80.0" promptText="End Min" />
+                  <ComboBox fx:id="endHourComoBox" prefHeight="25.0" prefWidth="215.0" promptText="End hr" visibleRowCount="15">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ComboBox>
+                  <ComboBox fx:id="endMinuteComoBox" minWidth="61.0" prefHeight="25.0" prefWidth="80.0" promptText="End Min" visibleRowCount="15">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ComboBox>
                </buttons>
             </ButtonBar>
-            <DatePicker fx:id="EndDatePicker" layoutX="179.0" layoutY="138.0" prefHeight="25.0" prefWidth="193.0" promptText="End Date" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <DatePicker fx:id="EndDatePicker" editable="false" layoutX="179.0" layoutY="138.0" prefHeight="25.0" prefWidth="193.0" promptText="End Date" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></DatePicker>
             <Label prefHeight="17.0" prefWidth="44.0" text="Date" GridPane.rowIndex="3">
                <font>
                   <Font size="15.0" />
@@ -93,34 +123,29 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <ButtonBar buttonMinWidth="50.0" prefHeight="38.0" prefWidth="196.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <ButtonBar buttonMinWidth="50.0" prefHeight="38.0" prefWidth="195.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
               <buttons>
-                  <ComboBox fx:id="startHourComoBox" minWidth="57.0" prefHeight="25.0" prefWidth="98.0" promptText="Start hr" />
-                  <ComboBox fx:id="startMinComoBox" minWidth="37.0" prefHeight="25.0" prefWidth="111.0" promptText="Start Min" />
+                  <ComboBox fx:id="startHourComoBox" blendMode="SRC_ATOP" minWidth="57.0" prefHeight="25.0" prefWidth="98.0" promptText="Start hr" visibleRowCount="15">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ComboBox>
+                  <ComboBox fx:id="startMinComoBox" minWidth="37.0" prefHeight="25.0" prefWidth="111.0" promptText="Start Min" visibleRowCount="15">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ComboBox>
               </buttons>
             </ButtonBar>
-            <ComboBox fx:id="typeComboBox" prefWidth="150.0" promptText="Type" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <ComboBox fx:id="customerComboBox" layoutX="437.0" layoutY="19.0" prefHeight="25.0" prefWidth="162.0" promptText="customer" GridPane.columnIndex="2" GridPane.rowIndex="2">
-               <contextMenu>
-                  <ContextMenu />
-               </contextMenu>
-            </ComboBox>
+            <ComboBox fx:id="typeComboBox" prefHeight="25.0" prefWidth="198.0" promptText="Type" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ComboBox>
          </children>
       </GridPane>
        <RadioButton fx:id="allappointments" layoutX="301.0" layoutY="9.0" mnemonicParsing="false" text="all appointments" />
        <RadioButton fx:id="weekappointments" layoutX="446.0" layoutY="9.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="162.0" text="appointments this week" />
        <RadioButton fx:id="monthAppontments" layoutX="625.0" layoutY="9.0" mnemonicParsing="false" text="appointments this month" />
-      <TextField fx:id="user_Id" disable="true" layoutX="175.0" layoutY="261.0" prefHeight="25.0" prefWidth="162.0" promptText="user_id" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="197.0" layoutY="494.0" prefHeight="63.0" prefWidth="346.0" text="If the customer you selected doesn't have any appointments, Add a new  appointment by first filling in all the forms and textFileds before clicking the Add button." wrapText="true">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Label>
+      <TextField fx:id="user_Id" disable="true" layoutX="175.0" layoutY="261.0" prefHeight="25.0" prefWidth="178.0" promptText="user_id" />
       <Label layoutX="26.0" layoutY="265.0" prefHeight="17.0" prefWidth="54.0" text="User_Id" />
-      <Label alignment="CENTER_RIGHT" layoutX="105.0" layoutY="515.0" prefHeight="21.0" prefWidth="83.0" text="QuickTip:">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
+      <TextField fx:id="Appointment_ID" disable="true" layoutX="-1.0" layoutY="224.0" promptText="Appointment_ID" />
    </children>
 </AnchorPane>

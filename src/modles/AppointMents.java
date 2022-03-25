@@ -1,8 +1,11 @@
 package modles;
+import dbmanager.DataManagement;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.StringProperty;
+
+import java.time.LocalDateTime;
 //gets and sets appointments
 /**
  * AppointMents class
@@ -16,42 +19,34 @@ public class AppointMents {
      *  customer id
      */
     private IntegerProperty customerId;
-
     /**
      *  user id
      */
     private IntegerProperty userId;
-
     /**
      * contact id
      */
     private IntegerProperty contactId;
-
     /**
      *  title
      */
     private StringProperty title;
-
     /**
      * description
      */
     private StringProperty description;
-
     /**
      *  location
      */
     private StringProperty location;
-
     /**
      *  type
      */
     private StringProperty type;
-
     /**
      *  startTime
      */
     private StringProperty startTime;
-
     /**
      * endTime
      */
@@ -73,7 +68,6 @@ public class AppointMents {
         this.startTime = new SimpleStringProperty();
         this.endTime = new SimpleStringProperty();
     }
-
     /**
      * getId
      * is an Integer variable used to get the appointment id
@@ -83,37 +77,25 @@ public class AppointMents {
     public IntegerProperty getAppointId() {
         return id;
     }
-
-
-
     /**
      * getCustomerId
      * used by appointmentScreen in initialize. it helps populate customerId column in the Appointment Table.
      * @return  customerId
      */
-    public IntegerProperty getCustomerId() {
-
-        return customerId;
-    }
+    public IntegerProperty getCustomerId() {return customerId;}
     /**
      * getUserId
      *  it is used by initialize.
      *  int userid equals the userId number.
      * @return  userId
      */
-    public IntegerProperty getUserId() {
-
-        return userId;
-    }
+    public IntegerProperty getUserId() {return userId;}
     /**
      *getContactId
      * it is used by appointmentScreen in initialize. it helps populate contact column in the Appointment Table.
      * @return  contactId
      */
-    public IntegerProperty getContactId() {
-
-        return contactId;
-    }
+    public IntegerProperty getContactId() {return contactId;}
     /**
      *  getTitle
      *  is used by appointmentScreen in initialize.  it is used by an array list called appoint and given the variable name tittle.
@@ -141,7 +123,6 @@ public class AppointMents {
     public StringProperty getLocation() {
         return location;
     }
-
     /**
      * getType
      * gets type
@@ -151,7 +132,6 @@ public class AppointMents {
     public StringProperty getType() {
         return type;
     }
-
     /**
      *gets startTime
      *  is used by appointmentScreen in initialize. it helps populate the Appointment Table.
@@ -169,31 +149,20 @@ public class AppointMents {
     public StringProperty getEndTime() {
         return endTime;
     }
-
-
-
-
     /**
      * setAppointmentId
      * Sets appointmentId
      * is used by appointmentScreen in initialize. it helps populate the Appointment Table.
      * @param id   appointmentId
      */
-    public void setAppointmentId(int id) {
-
-        this.id.set(id);
-    }
-
+    public void setAppointmentId(int id) {this.id.set(id);}
     /**
      * setId
      * Sets  appointmentId
      *  is used by appointmentScreen in initialize. it helps populate the Appointment Table.
      * @param userId
      */
-    public void setUserId(int userId) {
-
-        this.userId.set(userId);
-    }
+    public void setUserId(int userId) {this.userId.set(userId);}
     /**
      * sets contactId
      *  is used by appointmentScreen in initialize. it helps populate the Appointment Table.
@@ -208,11 +177,24 @@ public class AppointMents {
      * is used by appointmentScreen in initialize. it helps populate the Appointment Table.
      * @param id     customerid
      */
-    public void setCustomerId(int id) {
-
-        this.customerId.set(id);
+    public void setCustomerId(int id) {this.customerId.set(id);}
+    /**
+     * setAppointmentType
+     *sets  appointment type
+     *  is used by appointmentScreen in initialize. it helps populate the Appointment Table.
+     * @param type
+     */
+    public void setAppointmentType(String type) {
+        this.type.set(type);
     }
-
+    /**
+     * setAppointmentStartTime
+     * is used by appointmentScreen in initialize. it helps populate the Appointment Table.
+     * @param time
+     */
+    public void setAppointmentStartTime(String time) {
+        this.startTime.set(time);
+    }
     /**
      * setAppointmentEndTime
      * sets  appointment endtime
@@ -223,24 +205,6 @@ public class AppointMents {
         this.endTime.set(time);
     }
     /**
-     * setAppointmentType
-     *sets  appointment type
-     *  is used by appointmentScreen in initialize. it helps populate the Appointment Table.
-     * @param type
-     */
-    public void setAppointmentType(String type) {
-        this.type.set(type);
-    }
-
-    /**
-     * setAppointmentStartTime
-     * is used by appointmentScreen in initialize. it helps populate the Appointment Table.
-     * @param time
-     */
-    public void setAppointmentStartTime(String time) {
-        this.startTime.set(time);
-    }
-    /**
      * setAppointmentLocation
      * Sets the appointment location
      * is used by appointmentScreen in initialize. it helps populate the Appointment Table.
@@ -249,7 +213,6 @@ public class AppointMents {
     public void setAppointmentLocation(String location) {
         this.location.set(location);
     }
-
     /**
      * setAppointmentDescription
      * sets  appointment description
@@ -259,7 +222,6 @@ public class AppointMents {
     public void setAppointmentDescription(String desc) {
         this.description.set(desc);
     }
-
     /**
      * setAppointmentTitle
      * sets appointment title
@@ -269,6 +231,4 @@ public class AppointMents {
     public void setAppointmentTitle(String title) {
         this.title.set(title);
     }
-
-
 }

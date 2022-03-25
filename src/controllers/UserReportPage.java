@@ -25,8 +25,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-
 /**
  * Report Controller
  * shows the reports
@@ -37,7 +35,6 @@ public class UserReportPage implements  Initializable{
     private RadioButton apptsbymonth;
     @FXML
     private RadioButton customersadded;
-
     @FXML
     private RadioButton contactschedules;
     @FXML
@@ -58,7 +55,6 @@ public class UserReportPage implements  Initializable{
         contactschedules.setToggleGroup(group);
         customersadded.setToggleGroup(group);
         controleAppointsByType();
-
         //  appointment by type radio button selected
         apptsbytype.selectedProperty().addListener(new ChangeListener<Boolean>() {
             public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected, Boolean isNowSelected) {
@@ -68,16 +64,13 @@ public class UserReportPage implements  Initializable{
                 }
             }
         });
-
         // appointment by month radio button selected
         apptsbymonth.selectedProperty().addListener(new ChangeListener<Boolean>() {
             public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected, Boolean isNowSelected) {
                 if (isNowSelected) {
                     textarea.setText("");
-                    try {
-                        ObservableList<AppointMents> apptList = AppointMentsCRUD.getAllRecords();
+                    try {ObservableList<AppointMents> apptList = AppointMentsCRUD.getAllRecords();
                         String month;
-
                         HashMap<String, Integer> monthMap = new HashMap<String, Integer>();
                         for (int i = 0; i < apptList.size(); i++) {
                             String date = apptList.get(i).getStartTime().getValue();
@@ -94,29 +87,24 @@ public class UserReportPage implements  Initializable{
                             reslt += monthName + ": " + entry.getValue() + "\n";
                         }
                         textarea.setText(reslt);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(UserReportPage.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(UserReportPage.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {Logger.getLogger(UserReportPage.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {Logger.getLogger(UserReportPage.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
         });
-
         // Handle  radio button selected
         contactschedules.selectedProperty().addListener(new ChangeListener<Boolean>() {
             public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected, Boolean isNowSelected) {
                 if (isNowSelected) { textarea.setText("");
-                    try {
-                        ObservableList<AppointMents> apptList =AppointMentsCRUD.getAllRecords();
+                    try {ObservableList<AppointMents> apptList =AppointMentsCRUD.getAllRecords();
                         ObservableList<Contacts> contactList =ContactsCRUD.getEveryRecords();
-                        String contactName; int id; int contactId; int apptId; int customerId; String title; String type; String description; String start; String end;
-
+                        String contactName; int id; int contactId; int apptId; int customerId;
+                        String title; String type; String description; String start; String end;
                         StringBuilder reslt =new StringBuilder();
                         for (int i = 0; i < contactList.size(); i++) {
                             contactName = contactList.get(i).getContactsName().getValue();
                             id = contactList.get(i).getContactId().getValue();
-
                             for(int j = 0; j < apptList.size(); j++) {
                                 contactId = apptList.get(j).getContactId().getValue();
                                 if (contactId == id) {
@@ -138,65 +126,43 @@ public class UserReportPage implements  Initializable{
                                 }
                             }
                         }
-
                         textarea.setText(reslt.toString());
-
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(UserReportPage.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(UserReportPage.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {Logger.getLogger(UserReportPage.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {Logger.getLogger(UserReportPage.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
         });
-
         // customers added  this  week radio button selected
         customersadded.selectedProperty().addListener(new ChangeListener<Boolean>() {
             public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected, Boolean isNowSelected) {
-                if (isNowSelected) {
-                    textarea.setText("");
-
-                    try {
-                        ObservableList<Customers> customerList = CustomersCRUD.getAllRecordsThisWeek();
+                if (isNowSelected) {textarea.setText("");
+                    try {ObservableList<Customers> customerList = CustomersCRUD.getAllRecordsThisWeek();
                         int count =customerList.size();
                         textarea.setText(Integer.toString(count));
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(UserReportPage.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(UserReportPage.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException | SQLException ex) {Logger.getLogger(UserReportPage.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
         });
-
     }
-
-
     /**
      * gets the report displays appointment type.
      */
     private void controleAppointsByType() {
-        try {
-            ObservableList<AppointMents> apptList = AppointMentsCRUD.getAllRecords();
+        try {ObservableList<AppointMents> apptList = AppointMentsCRUD.getAllRecords();
             int updateCount = 0;
             int onboardCount = 0;
-
             for (int i = 0; i < apptList.size(); i++) {
-                if (apptList.get(i).getType().getValue().equals("onboard")) {
-                    onboardCount++;
-                } else if (apptList.get(i).getType().getValue().equals("update")) {
-                    updateCount++;
+                if (apptList.get(i).getType().getValue().equals("onboard")) { onboardCount++;
+                } else if (apptList.get(i).getType().getValue().equals("update")) { updateCount++;
                 }
             }
-
             String reslt = " ";
             reslt +="Update appointments: " +updateCount + "\n";
             reslt +="Onboarding appointments: "+onboardCount +"\n";
             textarea.setText(reslt);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UserReportPage.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(UserReportPage.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | SQLException ex) {Logger.getLogger(UserReportPage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     /**
@@ -206,20 +172,17 @@ public class UserReportPage implements  Initializable{
      */
     @FXML
     void backPressed(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/HomePage.fxml"));
+        try {FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/HomePage.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(Divisions.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {Logger.getLogger(Divisions.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     /**
      * converts number into the months.
-     *
      * @param month the number changes to the month name
      * @return month name
      */
@@ -231,5 +194,4 @@ public class UserReportPage implements  Initializable{
         default: return "";
     }
     }
-
 }

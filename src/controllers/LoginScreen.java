@@ -1,5 +1,4 @@
 package controllers;
-//javafx
 import dbmanager.DataManagement;
 import dbmanager.UserLocation;
 import javafx.beans.property.IntegerProperty;
@@ -23,11 +22,11 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
-
 //•  accepts a user ID and password and provides an appropriate error message
 //
 //•  determines the user’s location (i.e., ZoneId) and displays it in a label on the log-in form
@@ -35,7 +34,6 @@ import java.util.ResourceBundle;
 //•  displays the log-in form in English or French based on the user’s computer language setting to translate all the text, labels, buttons, and errors on the form
 //
 //•  automatically translates error control messages into English or French based on the user’s computer language setting
-
 /**
  * @author Sainvilus
  */
@@ -58,9 +56,6 @@ public class LoginScreen implements Initializable {
     private Button logIn;
     @FXML
     private PasswordField passWordTextField;
-
-
-
     /**
      * initialize the login controller class.
      * finds out if the user is in a French-speaking country.
@@ -78,21 +73,14 @@ public class LoginScreen implements Initializable {
             passwordLabel.setText(rb.getString("password"));
             logIn.setText(rb.getString("login"));
         }
-        else {
-            System.out.println("english login");
-        }
         userLocation.setText(UserLocation.grabMyLocation());
-
     }
-
     /**
      * gateKeeper
      * if gateKeeper equals true that means your username and password where correct and have been login and the homePage will appear
      * but if gateKeeper equals false  an alert message will display "access denied" and you will remain on the login page.
      */
     boolean gateKeeper = false;
-
-
     /**
      * login Action displays the homePage aka the customer screen.
      * compares the users input to the username and password stored in the database.
@@ -104,30 +92,22 @@ public class LoginScreen implements Initializable {
     public void LogInButtonAction() throws Exception{
         String usersName = usersNameTextField.getText();
         String passWord = passWordTextField.getText();
-
-
         // loops throw copy of user list puts usernames in sqlusername and passwords in sqlpasswords
-
-//
 //          for loop
 //         loops thought every username and password in the db and check if it matches the users input.
 //          This application is great but if I could add some feature I would add a feature able to notify customers of new appointment and send email updates.
 //         Other then that I would seek out features that enhances the user interface experience
-
         for (Users users: UsersCRUD.getEveryUser()){
             if (users.getUsersName().getValue().equals (usersName) && users.getPassWord().getValue().equals (passWord)) {
                 gateKeeper = true;
-                int sqlUsersId = users.getUsersId().getValue();
-                String sqlUsersname = users.getUsersName ().getValue();
-//                String sqlPassword = users.getPassWord().getValue();
-                DataManagement.currentUserName=sqlUsersname;
-                DataManagement.userIdNumber=sqlUsersId;
+                int userId = UsersCRUD.getUserId(usersName);
+                DataManagement.currentUserName=usersName;
+                DataManagement.userIdNumber=userId;
                 break;
             }
         }
         //set screen to home page aka customer view if username and password are correct records' event in logIn file
         if (gateKeeper) {
-            System.out.println("Access granted") ;
             //file name and item;
             String logfile= "src/loginfiles/LogIn_history.txt", item;
             // Create open filewriter
@@ -144,7 +124,6 @@ public class LoginScreen implements Initializable {
             outputDoc.close();
             //show home page
             SceneChange();
-
         }
         else if (!gateKeeper && Locale.getDefault().getLanguage().equals("fr")){
             Alert incorrect_username_and_password = new Alert(Alert.AlertType.INFORMATION, "Nom d’utilisateur et mot de passe incorrects", ButtonType.OK);
@@ -166,8 +145,7 @@ public class LoginScreen implements Initializable {
 
         }
         // else access denied
-        else {
-            Alert incorrect_username_and_password = new Alert(Alert.AlertType.INFORMATION, "Incorrect username and password", ButtonType.OK);
+        else {Alert incorrect_username_and_password = new Alert(Alert.AlertType.INFORMATION, "Incorrect username and password", ButtonType.OK);
             incorrect_username_and_password.showAndWait();
             //file name and item;
             String logfile= "src/loginfiles/LogIn_history.txt", item;
@@ -187,23 +165,28 @@ public class LoginScreen implements Initializable {
 // 15 minute appointment alert
         ObservableList<AppointMents> appointMents15MinList = AppointMentsCRUD.getAllRecordsInNext15Minutes();
         appointMents15MinList.forEach(appointMents -> {
-            int appointId = appointMents.getAppointId().getValue();
-            String appointDate = appointMents.getStartTime().getValue();
-            DataManagement.appointId = appointId;
-            DataManagement.appointTime = appointDate;
-        });
-
+                int appointId = appointMents.getAppointId().getValue();
+                String appointDate = appointMents.getStartTime().getValue();
+                DataManagement.appointId = appointId;
+                DataManagement.appointTime = appointDate;
+            });
+//            int begin = 0; int end = 10;
+//            int Hrbegin = 11; int Hrend = 13;
+//            int Minbegin = 14; int Minend = 16;
+//            String startDT = appointMents.getStartTime().getValue();
+//            CharSequence sdater = startDT.subSequence(begin,end);
+//            CharSequence sTime = startDT.subSequence(Hrbegin,Minend);
+//            DataManagement.appointId = appointMents.getAppointId().getValue();
+//            DataManagement.appointTime = LocalDateTime.of(LocalDate.parse(sdater),LocalTime.parse(sTime));
         if(!appointMents15MinList.isEmpty()){
             int appointid = DataManagement.appointId;
             String appointTime= DataManagement.appointTime;
             Alert appointmentIn15 = new Alert(Alert.AlertType.INFORMATION, "Upcoming appointment in 15 minutes.\n Appointment Id number is "+appointid+ " it meeting starts at " +appointTime+".", ButtonType.OK);
             appointmentIn15.showAndWait();
-        }
-        else {
+        } else {
             Alert appointmentIn15 = new Alert(Alert.AlertType.INFORMATION, " No upcoming appointments.", ButtonType.OK);
             appointmentIn15.showAndWait();
         }
-
     }
     /**
      * SceneChanger
@@ -221,7 +204,4 @@ public class LoginScreen implements Initializable {
             e.printStackTrace();
         }
     }
-    
-
-
 }

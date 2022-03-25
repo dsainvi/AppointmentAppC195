@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomePage">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomePage">
    <children>
       <TableView fx:id="CustomerTable" layoutX="8.0" layoutY="42.0" prefHeight="159.0" prefWidth="584.0">
         <columns>
@@ -41,15 +42,30 @@
       <Label alignment="CENTER_RIGHT" layoutX="227.0" layoutY="246.0" prefHeight="17.0" prefWidth="47.0" text="Address:" />
       <TextField fx:id="zipTextField" layoutX="55.0" layoutY="292.0" promptText="postal code" />
       <TextField fx:id="AddressTextField" layoutX="274.0" layoutY="242.0" promptText="123 ABC Street" />
-      <ComboBox fx:id="CountryComboBox" layoutX="274.0" layoutY="267.0" onAction="#countryIsSelected" prefWidth="150.0" promptText="Country" />
-      <ComboBox fx:id="lvlDivisionComboBox" layoutX="274.0" layoutY="292.0" prefWidth="150.0" promptText="State/provinces" />
+      <ComboBox fx:id="CountryComboBox" layoutX="274.0" layoutY="267.0" onAction="#countryIsSelected" prefWidth="150.0" promptText="Country">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ComboBox>
+      <ComboBox fx:id="lvlDivisionComboBox" layoutX="274.0" layoutY="292.0" prefWidth="150.0" promptText="State/provinces">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ComboBox>
       <TextField fx:id="CustomerIdTextField" disable="true" layoutX="275.0" layoutY="215.0" prefHeight="25.0" prefWidth="149.0" promptText="customer_ID" />
       <Label fx:id="CusId" layoutX="243.0" layoutY="9.0" text="CusID" visible="false" />
       <ButtonBar layoutX="45.0" layoutY="352.0" prefHeight="40.0" prefWidth="393.0">
         <buttons>
-            <Button fx:id="AddButton" minWidth="63.0" mnemonicParsing="false" onAction="#AddAction" prefHeight="25.0" prefWidth="114.0" text="Add" />
-            <Button fx:id="UpdateButton" mnemonicParsing="false" onAction="#UpdateAction" prefHeight="25.0" prefWidth="124.0" text="update" />
-            <Button fx:id="DeleteButton" mnemonicParsing="false" onAction="#DeleteAction" prefHeight="25.0" prefWidth="150.0" text="Delete" />
+            <Button fx:id="AddButton" minWidth="63.0" mnemonicParsing="false" onAction="#AddAction" prefHeight="25.0" prefWidth="114.0" text="Add">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="UpdateButton" mnemonicParsing="false" onAction="#UpdateAction" prefHeight="25.0" prefWidth="124.0" text="update">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="DeleteButton" mnemonicParsing="false" onAction="#DeleteAction" prefHeight="25.0" prefWidth="150.0" text="Delete">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
         </buttons>
       </ButtonBar>
       <Label fx:id="UserId" alignment="CENTER" contentDisplay="CENTER" layoutX="69.0" layoutY="219.0" prefHeight="17.0" prefWidth="106.0" />
@@ -61,9 +77,18 @@
       <Label alignment="CENTER_RIGHT" layoutX="30.0" layoutY="219.0" prefHeight="17.0" prefWidth="31.0" text="User:" />
       <ButtonBar layoutX="274.0" layoutY="6.0" prefHeight="40.0" prefWidth="315.0">
         <buttons>
-             <Button fx:id="Reports" mnemonicParsing="false" onAction="#reportsPressed" text="Reports" />
-            <Button fx:id="AppointmentButton" mnemonicParsing="false" onAction="#AppointmentButtonAction" prefHeight="25.0" prefWidth="100.0" text="Appointments" />
-            <Button fx:id="Logout" minWidth="71.0" mnemonicParsing="false" onAction="#logoutAction" prefHeight="28.0" text="Logout" />
+             <Button fx:id="Reports" mnemonicParsing="false" onAction="#reportsPressed" text="Reports">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="AppointmentButton" mnemonicParsing="false" onAction="#AppointmentButtonAction" prefHeight="25.0" prefWidth="100.0" text="Appointments">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="Logout" minWidth="71.0" mnemonicParsing="false" onAction="#logoutAction" prefHeight="28.0" text="Logout">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
         </buttons>
       </ButtonBar>
       <Label alignment="CENTER_RIGHT" layoutX="227.0" layoutY="271.0" prefHeight="17.0" prefWidth="47.0" text="Country:" />

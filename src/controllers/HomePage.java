@@ -24,98 +24,40 @@ import java.util.logging.Logger;
 //customer page
 /**
  * home page class displays a customer table and allows user to edit customer data.
-
  */
 public class HomePage {
-
-    public TextField CustomerIdTextField;
     public Label userId;
-    public Label CusId;
     public Label UserId;
-    /**
-     * customerDivisionTable
-     *  column country
-     */
-//    @FXML
-//    private TableColumn<Customers,Integer> customerDivisionTable;
-    @FXML
-    private ComboBox<String> lvlDivisionComboBox;
-//fxml customerScreen objects from homepage view
-    /**
-     * customerCountryTable
-     *  column country
-     */
+    public Label CusId;
+    public Button AppointmentButton;
+    public Button DeleteButton;
     @FXML
     private TableColumn<Customers, Integer>customerCountryTable;
-    /**
-     * phoneNumberTextField
-     *    phone
-     */
-    @FXML
-    private TextField phoneNumberTextField;
-    /**
-     * CustomerNameTextField
-     *     name
-     */
-    @FXML
-    private TextField CustomerNameTextField;
-
-    /**
-     * customerZipcodeTable
-     *     column zip
-     */
     @FXML
     private TableColumn<Customers, String>customerZipcodeTable;
-    /**
-     * customerPhoneTable
-     *      column  phone
-     */
     @FXML
     private TableColumn<Customers, String> customerPhoneTable;
-    /**
-     * customerAddressTable
-     *       column address
-     */
     @FXML
     private TableColumn<Customers, String>customerAddressTable;
-    /**
-     * CustomerNameTable
-     *      column name
-     */
     @FXML
     private TableColumn<Customers, String>CustomerNameTable;
-    /**
-     * customerIdTable
-     *   column id
-     */
     @FXML
     private TableColumn<Customers, Integer> customerIdTable;
-    /**
-     * CustomerTable
-     *      table view
-     */
     @FXML
     private TableView<Customers>CustomerTable;
-    /**
-     * zipTextField
-     *         zip textField
-     */
+    @FXML
+    private TextField phoneNumberTextField;
+    @FXML
+    private TextField CustomerNameTextField;
     @FXML
     private TextField zipTextField;
-    /**
-     * AddressTextField
-     *        address textField
-     */
     @FXML
     private TextField AddressTextField;
-    /**
-     * CountryComboBox
-     *       country comboBox
-     */
+    public TextField CustomerIdTextField;
     @FXML
     private ComboBox<String> CountryComboBox;
-
-
+    @FXML
+    private ComboBox<String> lvlDivisionComboBox;
     /**
      *
      * prepareTable
@@ -123,7 +65,6 @@ public class HomePage {
      * @param cusList
      */
     private void prepareTable(ObservableList<Customers> cusList) {CustomerTable.setItems(cusList);}
-
     /**
      * initialize
      * gets everything ready before Home page is called.
@@ -135,100 +76,54 @@ public class HomePage {
      */
     @FXML
     public void initialize()throws Exception{
-        customerCountryTable.setCellValueFactory(
-                cellData->cellData.getValue().getfirstLvLDivision().asObject());
-
-//        customerDivisionTable.setCellValueFactory(
-//          cellData->cellData.getValue().getfirstLvLDivision().asObject());
-        customerZipcodeTable.setCellValueFactory(
-                cellData->cellData.getValue().getZipCode());
-        customerPhoneTable.setCellValueFactory(
-                 cellData->cellData.getValue().getTelephoneNumber());
-
-        customerAddressTable.setCellValueFactory(
-                cellData->cellData.getValue().getcusAddress());
-
-        CustomerNameTable.setCellValueFactory(
-                 cellData->cellData.getValue().getcusName());
-
-        customerIdTable.setCellValueFactory(
-                 cellData->cellData.getValue().getcusId().asObject());
-
-        UserId.setText(DataManagement.currentUserName);
+        AppointmentButton.setDisable(true);
+        DeleteButton.setDisable(true);
+        customerCountryTable.setCellValueFactory(cellData->cellData.getValue().getfirstLvLDivision().asObject());
+        customerZipcodeTable.setCellValueFactory(cellData->cellData.getValue().getZipCode());
+        customerPhoneTable.setCellValueFactory(cellData->cellData.getValue().getTelephoneNumber());
+        customerAddressTable.setCellValueFactory(cellData->cellData.getValue().getcusAddress());
+        CustomerNameTable.setCellValueFactory(cellData->cellData.getValue().getcusName());
+        customerIdTable.setCellValueFactory(cellData->cellData.getValue().getcusId().asObject());
+        UserId.setText(String.valueOf(DataManagement.userIdNumber));
         ObservableList<Customers>cusList= CustomersCRUD.getEveryCustomer();
         prepareTable(cusList);
-
         ObservableList<Countrys> countrysList= CountrysCRUD.getEveryCountrys();
-
         ObservableList<String> countryNames= FXCollections.observableArrayList();
-
-        countrysList.forEach((countrys) -> { String countryAdd =
-                countrys.getCountryName().getValue();
-            countryNames.add(countryAdd);
-        });
+        countrysList.forEach((countrys) ->{ String countryAdd = countrys.getCountryName().getValue(); countryNames.add(countryAdd);});
         CountryComboBox.setItems(countryNames);
-
-        CustomerTable.getSelectionModel().selectedItemProperty().addListener(
-                (Obbs,olderData,newData)-> {
-                    if (newData !=null){
-                        Customers cus2mers=CustomerTable
-                                .getSelectionModel().getSelectedItem();
-
-
-                        String cusAddress= cus2mers.getcusAddress().getValue();
-                        AddressTextField.setText(cusAddress);
-
-                        String zipCode= cus2mers.getZipCode().getValue();
-                        zipTextField.setText(zipCode);
-
-                        String cusName= cus2mers.getcusName().getValue();
-                        CustomerNameTextField.setText(cusName);
-
-                        String telephone= cus2mers
-                                .getTelephoneNumber().getValue();
-                        phoneNumberTextField.setText(telephone);
-
-                        // autofill customer id text fields
-                        String customerID = cus2mers.getcusId().getValue().toString();
-                        CustomerIdTextField.setText(customerID);
-
-                        // autofills countryComboBox
-                        int divisionId = cus2mers.getfirstLvLDivision().getValue();
-
-                        // autofills countryComboBox
-                        if(divisionId<=55){
-                            CountryComboBox.setValue(countryNames.get(0));
+        CustomerTable.getSelectionModel().selectedItemProperty().addListener((Obbs,olderData,newData)-> {
+            if (newData !=null){ Customers cus2mers=CustomerTable.getSelectionModel().getSelectedItem();
+                    AppointmentButton.setDisable(false);
+                    DeleteButton.setDisable(false);
+                    String cusAddress= cus2mers.getcusAddress().getValue();
+                    AddressTextField.setText(cusAddress);
+                    String zipCode= cus2mers.getZipCode().getValue();
+                    zipTextField.setText(zipCode);
+                    String cusName= cus2mers.getcusName().getValue();
+                    CustomerNameTextField.setText(cusName);
+                    String telephone= cus2mers.getTelephoneNumber().getValue();
+                    phoneNumberTextField.setText(telephone);
+                    // autofill customer id text fields
+                    String customerID = cus2mers.getcusId().getValue().toString();
+                    CustomerIdTextField.setText(customerID);
+                    // autofills countryComboBox
+                    int divisionId = cus2mers.getfirstLvLDivision().getValue();
+                    // autofills countryComboBox
+                    if(divisionId<=55){CountryComboBox.setValue(countryNames.get(0));
 //                            CountryComboBox.setValue("US");
-
-                        }
-                        else if(divisionId>=60 && divisionId <=73){
-                            CountryComboBox.setValue(countryNames.get(2));
-
+                    } else if(divisionId>=60 && divisionId <=73){CountryComboBox.setValue(countryNames.get(2));
 //                            CountryComboBox.setValue("Canada");
-                        }
-                        else  if(divisionId >= 100){
-                            CountryComboBox.setValue(countryNames.get(1));
+                    } else  if(divisionId >= 100){CountryComboBox.setValue(countryNames.get(1));
 //                            CountryComboBox.setValue("Uk");
-
-                        }
-                        //autofills division combo box
-                        try {
-                            String divisionName = DivisionsCRUD.getDivisionName(divisionId);
-                            lvlDivisionComboBox.setValue(divisionName);
-                        } catch (ClassNotFoundException e) {
-                            e.printStackTrace();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-
-
-
                     }
-
+                    try{
+                        String divisionName = DivisionsCRUD.getDivisionName(divisionId);
+                        lvlDivisionComboBox.setValue(divisionName);
+                    }catch (ClassNotFoundException | SQLException e) {e.printStackTrace();
+                    }
+            }
         });
-
     }
-
     /**
      * countryIsSelected
      * gets country's
@@ -242,39 +137,23 @@ public class HomePage {
         String selectedCountry = CountryComboBox.getValue();
         int selectedId = CountrysCRUD.getCountrysId(selectedCountry);
         ObservableList<String> States= FXCollections.observableArrayList();
-        States.addAll("Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",
-                "Florida", "Georgia", "Hawaii", "Idaho", "IllinoisIndiana", "Iowa", "Kansas", "Kentucky", "Louisiana",
-                "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "MontanaNebraska",
-                "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota",
-                "Ohio", "Oklahoma", "Oregon", "PennsylvaniaRhode Island", "South Carolina", "South Dakota",
-                "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming");
+        States.addAll("Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "IllinoisIndiana", "Iowa", "Kansas", "Kentucky", "Louisiana",
+                "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "MontanaNebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota",
+                "Ohio", "Oklahoma", "Oregon", "PennsylvaniaRhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming");
         ObservableList<String> UKCountries = FXCollections.observableArrayList();
         UKCountries.addAll("England", "Scotland", "Wales", "Northern Ireland");
         ObservableList<String> candidaProven = FXCollections.observableArrayList();
-        candidaProven.addAll("Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Northwest Territories",
-                "Nova Scotia", "Nunavut", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan", "Yukon");
+        candidaProven.addAll("Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Northwest Territories", "Nova Scotia", "Nunavut", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan", "Yukon");
         // get all first level divisions where country_id = id (from above)
         ObservableList<Divisions> divisionList = DivisionsCRUD.getEveryDivisions();
         ObservableList<String> divisionNames = FXCollections.observableArrayList();
-
-
-        divisionList.forEach((division) -> {
-
-                String divisionToAdd = division.getDivisionsName().getValue();
-                divisionNames.add(divisionToAdd);
-        });
-//give scroll down list of state names
-        if(selectedId == 1){
-            lvlDivisionComboBox.setItems(States);
-        }
-        else if(selectedId == 2){
-            lvlDivisionComboBox.setItems(UKCountries);
-        }
-        else if(selectedId == 3){
-            lvlDivisionComboBox.setItems(candidaProven);
+        divisionList.forEach((division) -> {String divisionToAdd = division.getDivisionsName().getValue(); divisionNames.add(divisionToAdd);});
+        //give scroll down list of state names
+        if(selectedId == 1){lvlDivisionComboBox.setItems(States);
+        }else if(selectedId == 2){lvlDivisionComboBox.setItems(UKCountries);
+        }else if(selectedId == 3){lvlDivisionComboBox.setItems(candidaProven);
         }
     }
-
     /**
      * AppointmentButtonAction
      * click on an item in the customerTable before clicking AppointmentButton will load up only the appointments that customer has.
@@ -287,28 +166,14 @@ public class HomePage {
     void AppointmentButtonAction(ActionEvent event) throws IOException{
         try {
             Customers customers = CustomerTable.getSelectionModel().getSelectedItem();
-            if(customers != null) {
-                DataManagement.customersid = customers.getcusId().getValue();
+            DataManagement.customersid = customers.getcusId().getValue();
                 FXMLLoader loading = new FXMLLoader(getClass().getResource("../views/AppontmentScreen.fxml"));
                 Parent root = loading.load();
                 Scene scene = new Scene(root);
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(scene);
                 stage.show();
-            }
-            else {
-                FXMLLoader loading = new FXMLLoader(getClass().getResource("../views/AppontmentScreen.fxml"));
-                Parent root = loading.load();
-                Scene scene = new Scene(root);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//
-                stage.setScene(scene);
-                stage.show();
-            }
-            // add alert
-        } catch (IOException e) {
-            Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, e);
-        }
+        } catch (IOException e) {Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, "HomePage appoint button", e);}
     }
     /**
      * logoutAction
@@ -326,7 +191,6 @@ public class HomePage {
 
         }
     }
-
     /**
      * AddAction
      *  adds a new customers via the user inputs.
@@ -339,35 +203,28 @@ public class HomePage {
      */
     @FXML
     public void AddAction(ActionEvent event) throws IOException {
-        try {
-            String cusDiv = lvlDivisionComboBox.getValue();
-
+        try {String cusDiv = lvlDivisionComboBox.getValue();
             int cusDivison = DivisionsCRUD.getDivisionsId(cusDiv);
             String cusAddress = AddressTextField.getText();
-
-            String zipCode=
-            zipTextField.getText();
-
-            String cusName=
-            CustomerNameTextField.getText();
+            String zipCode= zipTextField.getText();
+            String cusName= CustomerNameTextField.getText();
             ObservableList<Customers> cusList= CustomersCRUD.getEveryCustomer();
             int cusID =cusList.size()+1;
-            String telephone=
-                    phoneNumberTextField.getText();
-
-            CustomersCRUD.insertCus(cusID,cusName,cusAddress,zipCode,telephone,cusDivison);
-
-        }catch (Exception e){
-            System.out.println("Add button not working"+e);
-
-        }
+            String telephone= phoneNumberTextField.getText();
+            String cusCountry = CountryComboBox.getValue();
+            boolean validCus = CusValid(cusName,cusAddress,zipCode,cusCountry,telephone,cusDiv);
+            if (validCus) {
+                CustomersCRUD.insertCus(cusID, cusName, cusAddress, zipCode, telephone, cusDivison);
+            }else {Alert alert = new Alert(Alert.AlertType.INFORMATION, "All Questions must be answered!", ButtonType.OK);
+                alert.showAndWait().filter(response -> response == ButtonType.OK);
+            }
+        }catch (Exception e){System.out.println("Add button not working"+e);}
         Parent page = FXMLLoader.load(getClass().getResource("../views/HomePage.fxml"));
         Scene scene = new Scene(page);
         Stage stage = Main.getStage();
         stage.setScene(scene);
         stage.show();
     }
-
     /**
      *  DeleteAction
      *  click on an item from the customer table, that click the delete button,
@@ -383,33 +240,22 @@ public class HomePage {
     public void DeleteAction(ActionEvent event) throws SQLException, ClassNotFoundException, IOException {
         Customers cus2omers = CustomerTable.getSelectionModel().getSelectedItem();
         int cusid= cus2omers.getcusId().getValue();
-
         if(!AppointMentsCRUD.hasAppointMents(cusid)) {
-            try {
-                CustomersCRUD.deleteCus(cusid);
+            try {CustomersCRUD.deleteCus(cusid);
                 ObservableList<Customers> customersList = CustomersCRUD.getEveryCustomer();
                 prepareTable(customersList);
-
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-
+            } catch (SQLException throwables) {throwables.printStackTrace();}
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Deleted", ButtonType.OK);
             alert.showAndWait().filter(response -> response == ButtonType.OK);
-
             Parent page = FXMLLoader.load(getClass().getResource("../views/HomePage.fxml"));
             Scene scene = new Scene(page);
             Stage stage = Main.getStage();
             stage.setScene(scene);
             stage.show();
-
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "This customer still has appointments coming up and cannot be deleted", ButtonType.OK);
+        } else {Alert alert = new Alert(Alert.AlertType.WARNING, "This customer still has appointments coming up and cannot be deleted", ButtonType.OK);
             alert.showAndWait().filter(response -> response == ButtonType.OK);;
         }
     }
-
-
     /**
      *  updateAction
      *  is a button that when click on it updates old data to the sql db as well as the customer table
@@ -422,54 +268,34 @@ public class HomePage {
      */
     @FXML
     public void UpdateAction(ActionEvent event) {
-        try {
-            String cusDiv = lvlDivisionComboBox.getValue();
-
+        try {String cusDiv = lvlDivisionComboBox.getValue();
             int cusDivison = DivisionsCRUD.getDivisionsId(cusDiv);
             String cusAddress = AddressTextField.getText();
-
-            String zipCode=
-                    zipTextField.getText();
-
+            String zipCode= zipTextField.getText();
             String cusCountry = CountryComboBox.getValue();
-            String cusName=
-                    CustomerNameTextField.getText();
+            String cusName= CustomerNameTextField.getText();
             Customers customers = CustomerTable.getSelectionModel().getSelectedItem();
             int cusID =customers.getcusId().getValue();
-            String telephone=
-                    phoneNumberTextField.getText();
+            String telephone= phoneNumberTextField.getText();
             // check if fields where left blank
             boolean validCus = CusValid(cusName,cusAddress,zipCode,cusCountry,telephone,cusDiv);
             if (validCus){
-                CustomersCRUD.updateCus(
-                        cusID,cusName,cusAddress,zipCode,telephone,cusDivison);
+                CustomersCRUD.updateCus(cusID,cusName,cusAddress,zipCode,telephone,cusDivison);
                 ObservableList<Customers> cusList= CustomersCRUD.getEveryCustomer();
                 prepareTable(cusList);
-
                 Parent page = FXMLLoader.load(getClass().getResource("../views/HomePage.fxml"));
                 Scene scene = new Scene(page);
                 Stage stage = Main.getStage();
                 stage.setScene(scene);
                 stage.show();
-
-            } else {
-
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "All Questions must be answered!", ButtonType.OK);
+            } else {Alert alert = new Alert(Alert.AlertType.INFORMATION, "All Questions must be answered!", ButtonType.OK);
                 alert.showAndWait().filter(response -> response == ButtonType.OK);
-
             }
-
-
-        }catch (Exception e){
-            System.out.println("Update button not working"+e);
+        }catch (Exception e){System.out.println("Update button not working"+e);
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "All Questions must be answered!", ButtonType.OK);
             alert.showAndWait().filter(response -> response == ButtonType.OK);
-
         }
-
-
     }
-
     /**
      *  CusValid
      *  is a boolean used to check and see if any of the text fields and combo Boxes where left empty
@@ -485,12 +311,10 @@ public class HomePage {
      * @return
      */
     private boolean CusValid(String cusName, String cusaddress, String cuscountry, String cuszip, String telephone, String cusDiv) {
-        if (cusName.isBlank() || cusaddress.isBlank() || cuscountry.isBlank() || cuszip.isBlank() || telephone.isBlank() || cusDiv.isBlank()) {
+        if(cusName.isBlank() || cusaddress.isBlank() || cuscountry.isBlank() || cuszip.isBlank() || telephone.isBlank() || cusDiv.isBlank()) {
             return false;
-        }
-        return true;
+        }return true;
     }
-
     public void reportsPressed(ActionEvent event) throws IOException {
         Parent page = FXMLLoader.load(getClass().getResource("../views/UserReport.fxml"));
         Scene scene = new Scene(page);
